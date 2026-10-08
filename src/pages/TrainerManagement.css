@@ -1,0 +1,369 @@
+/* ==========================================
+   TRAINER MANAGEMENT PAGE
+   ========================================== */
+
+.trainer-management-page {
+  min-height: 100vh;
+  padding: 32px;
+  background: #f4f7fb;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   HEADER
+   ========================================== */
+
+.trainer-management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+}
+
+.trainer-management-header h1 {
+  margin: 0 0 8px;
+  color: #12213f;
+  font-size: 32px;
+}
+
+.trainer-management-header p {
+  margin: 0;
+  color: #5f718d;
+  font-size: 16px;
+}
+
+.trainer-management-header a {
+  text-decoration: none;
+  background: #ffffff;
+  color: #12213f;
+  border: 1px solid #cfd8e6;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.trainer-management-header a:hover {
+  background: #eef3fa;
+}
+
+/* ==========================================
+   MAIN CARD
+   ========================================== */
+
+.trainer-management-card {
+  background: #ffffff;
+  border: 1px solid #dce4ef;
+  border-radius: 14px;
+  padding: 28px;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   TOP ROW
+   ========================================== */
+
+.trainer-management-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.trainer-management-top h2 {
+  margin: 0;
+  color: #12213f;
+  font-size: 24px;
+}
+
+.trainer-management-top button {
+  border: none;
+  background: #172b5c;
+  color: #ffffff;
+  padding: 11px 20px;
+  border-radius: 7px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.trainer-management-top button:hover {
+  background: #213b78;
+}
+
+/* ==========================================
+   TABLE
+   ========================================== */
+
+.trainer-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.trainer-table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.trainer-table-wrapper th {
+  background: #f4f7fb;
+  color: #425574;
+  text-align: left;
+  padding: 15px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #dce4ef;
+}
+
+.trainer-table-wrapper td {
+  padding: 15px 14px;
+  color: #263752;
+  font-size: 14px;
+  border-bottom: 1px solid #e7edf5;
+}
+
+.trainer-table-wrapper tbody tr:hover {
+  background: #f9fbfe;
+}
+
+.trainer-name {
+  font-weight: 600;
+  color: #12213f !important;
+}
+
+/* ==========================================
+   STATUS
+   ========================================== */
+
+.trainer-status {
+  display: inline-block;
+  padding: 5px 11px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.trainer-status.active {
+  background: #e7f7ed;
+  color: #18733c;
+}
+
+.trainer-status.inactive {
+  background: #fbe9e9;
+  color: #a52d2d;
+}
+
+/* ==========================================
+   ACTION BUTTONS
+   ========================================== */
+
+.trainer-edit,
+.trainer-delete {
+  border: none;
+  padding: 7px 12px;
+  border-radius: 5px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 7px;
+}
+
+.trainer-edit {
+  background: #e8f0ff;
+  color: #1d4fa3;
+}
+
+.trainer-edit:hover {
+  background: #d7e5ff;
+}
+
+.trainer-delete {
+  background: #fdeaea;
+  color: #b52b2b;
+}
+
+.trainer-delete:hover {
+  background: #f9d5d5;
+}
+
+/* ==========================================
+   MODAL OVERLAY
+   ========================================== */
+
+.trainer-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 29, 52, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+/* ==========================================
+   MODAL
+   ========================================== */
+
+.trainer-modal {
+  width: 100%;
+  max-width: 500px;
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+}
+
+/* ==========================================
+   MODAL HEADER
+   ========================================== */
+
+.trainer-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 24px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.trainer-modal-header h2 {
+  margin: 0;
+  color: #12213f;
+  font-size: 21px;
+}
+
+.trainer-modal-header button {
+  border: none;
+  background: transparent;
+  color: #52627a;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  padding: 2px 6px;
+}
+
+.trainer-modal-header button:hover {
+  color: #172b5c;
+}
+
+/* ==========================================
+   FORM
+   ========================================== */
+
+.trainer-modal form {
+  padding: 24px;
+}
+
+.trainer-form-group {
+  margin-bottom: 18px;
+}
+
+.trainer-form-group label {
+  display: block;
+  margin-bottom: 7px;
+  color: #263752;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.trainer-form-group input,
+.trainer-form-group select {
+  width: 100%;
+  padding: 11px 12px;
+  box-sizing: border-box;
+  border: 1px solid #cfd8e6;
+  border-radius: 6px;
+  background: #ffffff;
+  color: #263752;
+  font-size: 14px;
+  outline: none;
+}
+
+.trainer-form-group input:focus,
+.trainer-form-group select:focus {
+  border-color: #315ca8;
+  box-shadow: 0 0 0 3px rgba(49, 92, 168, 0.1);
+}
+
+.trainer-form-group input::placeholder {
+  color: #9aa8bb;
+}
+
+/* ==========================================
+   MODAL BUTTONS
+   ========================================== */
+
+.trainer-modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.trainer-modal-actions button {
+  border: none;
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.trainer-modal-actions button[type="button"] {
+  background: #eef2f7;
+  color: #425574;
+}
+
+.trainer-modal-actions button[type="button"]:hover {
+  background: #e1e7ef;
+}
+
+.trainer-modal-actions button[type="submit"] {
+  background: #172b5c;
+  color: #ffffff;
+}
+
+.trainer-modal-actions button[type="submit"]:hover {
+  background: #213b78;
+}
+
+/* ==========================================
+   RESPONSIVE
+   ========================================== */
+
+@media (max-width: 768px) {
+  .trainer-management-page {
+    padding: 20px;
+  }
+
+  .trainer-management-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .trainer-management-card {
+    padding: 20px;
+  }
+
+  .trainer-management-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .trainer-management-top button {
+    width: 100%;
+  }
+
+  .trainer-table-wrapper {
+    overflow-x: auto;
+  }
+
+  .trainer-modal {
+    max-width: 100%;
+  }
+}

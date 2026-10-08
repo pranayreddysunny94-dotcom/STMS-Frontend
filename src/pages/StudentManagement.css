@@ -1,0 +1,226 @@
+/* ==========================================
+   STUDENT MANAGEMENT PAGE
+========================================== */
+
+.student-management-page {
+  min-height: 100vh;
+  padding: 40px;
+  background: #f5f7fb;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.student-management-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.student-management-header h1 {
+  margin: 0 0 8px;
+  font-size: 30px;
+  color: #172033;
+}
+
+.student-management-header p {
+  margin: 0;
+  color: #687386;
+  font-size: 15px;
+}
+
+.student-management-header a {
+  text-decoration: none;
+  background: #ffffff;
+  color: #2563eb;
+  padding: 11px 18px;
+  border-radius: 8px;
+  border: 1px solid #dbe2ea;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.student-management-header a:hover {
+  background: #2563eb;
+  color: #ffffff;
+}
+
+
+/* ==========================================
+   MAIN CARD
+========================================== */
+
+.student-management-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 25px;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.05);
+}
+
+
+/* ==========================================
+   TOP SECTION
+========================================== */
+
+.student-management-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.student-management-top h2 {
+  margin: 0;
+  font-size: 21px;
+  color: #172033;
+}
+
+.student-management-top span {
+  background: #eff6ff;
+  color: #2563eb;
+  padding: 8px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   TABLE WRAPPER
+========================================== */
+
+.student-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+
+
+/* ==========================================
+   TABLE
+========================================== */
+
+.student-table-wrapper table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 1100px;
+}
+
+.student-table-wrapper thead {
+  background: #f8fafc;
+}
+
+.student-table-wrapper th {
+  padding: 14px 15px;
+  text-align: left;
+  font-size: 13px;
+  font-weight: 700;
+  color: #475569;
+  border-bottom: 1px solid #e2e8f0;
+  white-space: nowrap;
+}
+
+.student-table-wrapper td {
+  padding: 16px 15px;
+  font-size: 14px;
+  color: #475569;
+  border-bottom: 1px solid #edf0f4;
+  white-space: nowrap;
+}
+
+.student-table-wrapper tbody tr {
+  transition: 0.2s ease;
+}
+
+.student-table-wrapper tbody tr:hover {
+  background: #f8fafc;
+}
+
+
+/* ==========================================
+   STUDENT NAME
+========================================== */
+
+.student-name {
+  font-weight: 600;
+  color: #172033 !important;
+}
+
+
+/* ==========================================
+   DELETE BUTTON
+========================================== */
+
+.student-delete {
+  border: none;
+  padding: 8px 13px;
+  border-radius: 6px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #fef2f2;
+  color: #dc2626;
+  transition: 0.2s ease;
+}
+
+.student-delete:hover {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+
+/* ==========================================
+   NO STUDENTS
+========================================== */
+
+.student-table-wrapper h3 {
+  margin: 0 0 8px;
+  color: #172033;
+}
+
+.student-table-wrapper p {
+  margin: 0;
+  color: #687386;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .student-management-page {
+    padding: 20px;
+  }
+
+  .student-management-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .student-management-header h1 {
+    font-size: 25px;
+  }
+
+  .student-management-card {
+    padding: 18px;
+  }
+
+  .student-management-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .student-management-top span {
+    align-self: flex-start;
+  }
+
+}

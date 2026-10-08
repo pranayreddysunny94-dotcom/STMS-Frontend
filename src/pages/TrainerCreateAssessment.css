@@ -1,0 +1,222 @@
+.trainer-create-assessment-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+  box-sizing: border-box;
+}
+
+/* Header */
+
+.trainer-create-assessment-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.trainer-create-assessment-header h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 27px;
+  font-weight: 700;
+}
+
+.trainer-create-assessment-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+/* Back Button */
+
+.back-dashboard-btn {
+  border: none;
+  background: #64748b;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.back-dashboard-btn:hover {
+  background: #475569;
+}
+
+/* Card */
+
+.trainer-create-assessment-card {
+  max-width: 850px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+/* Form */
+
+.form-group {
+  margin-bottom: 20px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 7px;
+  color: #172033;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.form-group input,
+.form-group textarea,
+.form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  padding: 11px 12px;
+  font-size: 13px;
+  color: #172033;
+  background: #ffffff;
+  outline: none;
+  font-family: Arial, sans-serif;
+}
+
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color: #172554;
+  box-shadow: 0 0 0 2px rgba(23, 37, 84, 0.08);
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+/* Two Columns */
+
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+/* Readonly */
+
+.readonly-input {
+  background: #f8fafc !important;
+  color: #64748b !important;
+}
+
+.form-group small {
+  display: block;
+  margin-top: 5px;
+  color: #94a3b8;
+  font-size: 11px;
+}
+
+/* Error */
+
+.assessment-form-error {
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  padding: 11px 13px;
+  border-radius: 7px;
+  font-size: 12px;
+  margin-bottom: 18px;
+}
+
+/* Success */
+
+.assessment-form-success {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  color: #15803d;
+  padding: 11px 13px;
+  border-radius: 7px;
+  font-size: 12px;
+  margin-bottom: 18px;
+}
+
+/* Buttons */
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.cancel-assessment-btn,
+.submit-assessment-btn {
+  border: none;
+  padding: 11px 20px;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.cancel-assessment-btn {
+  background: #e2e8f0;
+  color: #334155;
+}
+
+.cancel-assessment-btn:hover {
+  background: #cbd5e1;
+}
+
+.submit-assessment-btn {
+  background: #172554;
+  color: #ffffff;
+}
+
+.submit-assessment-btn:hover {
+  background: #1e3a8a;
+}
+
+.cancel-assessment-btn:disabled,
+.submit-assessment-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+
+@media (max-width: 700px) {
+
+  .trainer-create-assessment-page {
+    padding: 18px;
+  }
+
+  .trainer-create-assessment-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .trainer-create-assessment-card {
+    padding: 20px;
+  }
+
+  .form-row {
+    grid-template-columns: 1fr;
+    gap: 0;
+  }
+
+  .form-actions {
+    flex-direction: column;
+  }
+
+  .cancel-assessment-btn,
+  .submit-assessment-btn {
+    width: 100%;
+  }
+}

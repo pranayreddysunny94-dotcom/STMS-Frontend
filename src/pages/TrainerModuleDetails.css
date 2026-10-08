@@ -1,0 +1,379 @@
+.trainer-module-details-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.trainer-module-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.trainer-module-details-header h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 27px;
+}
+
+.trainer-module-details-header p {
+  margin: 6px 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   BACK BUTTON
+===================================================== */
+
+.module-back-button {
+  display: inline-block;
+  background: #172554;
+  color: #ffffff;
+  text-decoration: none;
+  padding: 10px 17px;
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+.module-back-button:hover {
+  background: #1e3a8a;
+}
+
+
+/* =====================================================
+   DETAILS CARD
+===================================================== */
+
+.trainer-module-details-card {
+  max-width: 850px;
+  margin: 0 auto;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 30px;
+  box-shadow: 0 3px 12px rgba(15, 23, 42, 0.05);
+}
+
+
+/* =====================================================
+   ICON
+===================================================== */
+
+.module-details-icon {
+  width: 55px;
+  height: 55px;
+  border-radius: 10px;
+  background: #eef2ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 26px;
+}
+
+
+/* =====================================================
+   TITLE
+===================================================== */
+
+.trainer-module-details-card h2 {
+  color: #172033;
+  margin: 18px 0 8px;
+  font-size: 22px;
+}
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
+
+.module-details-description {
+  color: #64748b;
+  line-height: 1.7;
+  font-size: 14px;
+  margin-bottom: 25px;
+}
+
+
+/* =====================================================
+   INFORMATION GRID
+===================================================== */
+
+.module-info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 25px;
+}
+
+
+/* =====================================================
+   INFORMATION ITEM
+===================================================== */
+
+.module-info-item {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 8px;
+  padding: 15px;
+}
+
+.module-info-item span {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.module-info-item strong {
+  display: block;
+  color: #172033;
+  font-size: 14px;
+}
+
+
+/* =====================================================
+   TRAINING PROGRAM
+===================================================== */
+
+.module-program-item {
+  grid-column: span 2;
+}
+
+
+/* =====================================================
+   ACTION BUTTONS
+===================================================== */
+
+.module-action-buttons {
+  display: flex;
+  gap: 12px;
+  margin-top: 28px;
+  padding-top: 20px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.module-edit-button,
+.module-delete-button {
+  border: 0;
+  border-radius: 7px;
+  padding: 10px 17px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+
+/* =====================================================
+   EDIT
+===================================================== */
+
+.module-edit-button {
+  background: #172554;
+  color: #ffffff;
+}
+
+.module-edit-button:hover {
+  background: #1e3a8a;
+}
+
+
+/* =====================================================
+   DELETE
+===================================================== */
+
+.module-delete-button {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+.module-delete-button:hover {
+  background: #b91c1c;
+}
+
+
+/* =====================================================
+   MANAGE BUTTON ON MODULE LIST
+===================================================== */
+
+.manage-module-button {
+  display: inline-block;
+  margin-top: 18px;
+  background: #172554;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 7px;
+  padding: 10px 15px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.manage-module-button:hover {
+  background: #1e3a8a;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 700px) {
+
+  .trainer-module-details-page {
+    padding: 18px;
+  }
+
+  .trainer-module-details-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .trainer-module-details-card {
+    padding: 22px;
+  }
+
+  .module-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .module-program-item {
+    grid-column: span 1;
+  }
+
+  .module-action-buttons {
+    flex-direction: column;
+  }
+
+  .module-edit-button,
+  .module-delete-button {
+    width: 100%;
+  }
+
+}
+/* =====================================================
+   EDIT MODULE FORM
+===================================================== */
+
+.module-edit-form {
+  margin-top: 25px;
+}
+
+.module-form-group {
+  margin-bottom: 18px;
+}
+
+.module-form-group label {
+  display: block;
+  color: #172033;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.module-form-group input,
+.module-form-group textarea,
+.module-form-group select {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 7px;
+  padding: 11px 12px;
+  font-family: Arial, sans-serif;
+  font-size: 13px;
+  color: #172033;
+  background: #ffffff;
+  outline: none;
+}
+
+.module-form-group input:focus,
+.module-form-group textarea:focus,
+.module-form-group select:focus {
+  border-color: #172554;
+  box-shadow: 0 0 0 2px rgba(23, 37, 84, 0.08);
+}
+
+.module-form-group textarea {
+  resize: vertical;
+  min-height: 120px;
+}
+
+.module-form-group input:disabled {
+  background: #f1f5f9;
+  color: #64748b;
+  cursor: not-allowed;
+}
+
+
+/* =====================================================
+   FORM ERROR
+===================================================== */
+
+.module-form-error {
+  margin-top: 18px;
+  margin-bottom: 18px;
+  padding: 11px 13px;
+  border-radius: 7px;
+  background: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 13px;
+}
+
+
+/* =====================================================
+   CANCEL BUTTON
+===================================================== */
+
+.module-cancel-button {
+  border: 0;
+  border-radius: 7px;
+  padding: 10px 17px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  background: #e2e8f0;
+  color: #172033;
+}
+
+.module-cancel-button:hover {
+  background: #cbd5e1;
+}
+
+
+/* =====================================================
+   DISABLED BUTTON
+===================================================== */
+
+.module-edit-button:disabled,
+.module-cancel-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 700px) {
+
+  .module-action-buttons {
+    flex-direction: column;
+  }
+
+  .module-edit-button,
+  .module-cancel-button,
+  .module-delete-button {
+    width: 100%;
+  }
+
+}

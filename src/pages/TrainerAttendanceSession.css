@@ -1,0 +1,561 @@
+.trainer-attendance-session-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.trainer-session-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 22px;
+}
+
+.trainer-session-header h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 28px;
+}
+
+.trainer-session-header p {
+  margin: 7px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.trainer-session-back {
+  text-decoration: none;
+  background: #64748b;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* =========================================
+   PROGRAM INFORMATION
+========================================= */
+
+.trainer-session-program {
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 20px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 20px;
+}
+
+.trainer-session-program-main {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.trainer-session-icon {
+  width: 48px;
+  height: 48px;
+
+  background: #eef2ff;
+
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 22px;
+}
+
+.trainer-session-program h2 {
+  margin: 0 0 5px;
+
+  color: #172033;
+  font-size: 18px;
+}
+
+.trainer-session-program p {
+  margin: 0;
+
+  color: #64748b;
+  font-size: 12px;
+}
+
+.trainer-session-date {
+  text-align: right;
+}
+
+.trainer-session-date span {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 11px;
+
+  margin-bottom: 5px;
+}
+
+.trainer-session-date strong {
+  color: #172033;
+  font-size: 14px;
+}
+
+
+/* =========================================
+   SUMMARY
+========================================= */
+
+.trainer-attendance-summary {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, 1fr);
+
+  gap: 14px;
+
+  margin-bottom: 20px;
+}
+
+.attendance-summary-card {
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 10px;
+
+  padding: 16px;
+
+  display: flex;
+  align-items: center;
+
+  gap: 12px;
+}
+
+.summary-icon {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 8px;
+
+  background: #f1f5f9;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 17px;
+}
+
+.attendance-summary-card div span {
+  display: block;
+
+  color: #64748b;
+
+  font-size: 11px;
+
+  margin-bottom: 4px;
+}
+
+.attendance-summary-card div strong {
+  color: #172033;
+
+  font-size: 20px;
+}
+
+.attendance-summary-card.present .summary-icon {
+  background: #dcfce7;
+  color: #166534;
+}
+
+.attendance-summary-card.absent .summary-icon {
+  background: #fee2e2;
+  color: #991b1b;
+}
+
+.attendance-summary-card.pending .summary-icon {
+  background: #fef3c7;
+  color: #92400e;
+}
+
+
+/* =========================================
+   SUCCESS
+========================================= */
+
+.attendance-submit-message {
+  background: #f0fdf4;
+
+  border: 1px solid #bbf7d0;
+
+  border-radius: 10px;
+
+  padding: 15px 18px;
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  margin-bottom: 20px;
+}
+
+.submit-message-icon {
+  width: 36px;
+  height: 36px;
+
+  border-radius: 50%;
+
+  background: #16a34a;
+
+  color: white;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-weight: bold;
+}
+
+.attendance-submit-message h3 {
+  margin: 0 0 4px;
+
+  color: #166534;
+
+  font-size: 14px;
+}
+
+.attendance-submit-message p {
+  margin: 0;
+
+  color: #15803d;
+
+  font-size: 11px;
+}
+
+
+/* =========================================
+   STUDENT CARD
+========================================= */
+
+.trainer-student-attendance-card {
+  background: white;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 12px;
+
+  overflow: hidden;
+}
+
+.trainer-student-attendance-header {
+  padding: 20px;
+
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.trainer-student-attendance-header h2 {
+  margin: 0 0 5px;
+
+  color: #172033;
+
+  font-size: 18px;
+}
+
+.trainer-student-attendance-header p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   TABLE
+========================================= */
+
+.trainer-student-table-wrapper {
+  overflow-x: auto;
+}
+
+.trainer-student-table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.trainer-student-table th {
+  background: #f8fafc;
+
+  color: #64748b;
+
+  text-align: left;
+
+  padding: 13px 16px;
+
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing: 0.5px;
+}
+
+.trainer-student-table td {
+  padding: 14px 16px;
+
+  border-top: 1px solid #f1f5f9;
+
+  color: #475569;
+
+  font-size: 12px;
+}
+
+.trainer-student-table tbody tr:hover {
+  background: #f8fafc;
+}
+
+.student-number {
+  width: 40px;
+
+  color: #94a3b8 !important;
+
+  font-weight: 600;
+}
+
+.student-name-cell {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+}
+
+.student-avatar {
+  width: 34px;
+  height: 34px;
+
+  border-radius: 50%;
+
+  background: #e0e7ff;
+
+  color: #3730a3;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+
+  font-weight: 700;
+}
+
+.student-name-cell strong {
+  display: block;
+
+  color: #172033;
+
+  font-size: 12px;
+
+  margin-bottom: 3px;
+}
+
+.student-name-cell span {
+  display: block;
+
+  color: #94a3b8;
+
+  font-size: 10px;
+}
+
+.student-roll {
+  font-weight: 600;
+
+  color: #334155 !important;
+}
+
+
+/* =========================================
+   ATTENDANCE BUTTONS
+========================================= */
+
+.attendance-actions {
+  display: flex;
+
+  gap: 7px;
+}
+
+.attendance-btn {
+  border: 1px solid #e2e8f0;
+
+  background: white;
+
+  padding: 7px 10px;
+
+  border-radius: 6px;
+
+  font-size: 10px;
+
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+.attendance-btn.present {
+  color: #15803d;
+}
+
+.attendance-btn.present:hover,
+.attendance-btn.present.active {
+  background: #dcfce7;
+
+  border-color: #86efac;
+
+  color: #166534;
+}
+
+.attendance-btn.absent {
+  color: #b91c1c;
+}
+
+.attendance-btn.absent:hover,
+.attendance-btn.absent.active {
+  background: #fee2e2;
+
+  border-color: #fca5a5;
+
+  color: #991b1b;
+}
+
+
+/* =========================================
+   LOADING / ERROR
+========================================= */
+
+.trainer-session-message {
+  text-align: center;
+
+  padding: 55px 20px;
+
+  background: #f8fafc;
+}
+
+.trainer-session-message > div {
+  font-size: 30px;
+
+  margin-bottom: 10px;
+}
+
+.trainer-session-message h3 {
+  margin: 0 0 5px;
+
+  color: #172033;
+
+  font-size: 15px;
+}
+
+.trainer-session-message p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 11px;
+}
+
+.trainer-session-message.error {
+  background: #fff7f7;
+}
+
+
+/* =========================================
+   SUBMIT AREA
+========================================= */
+
+.trainer-submit-area {
+  display: flex;
+
+  justify-content: flex-end;
+
+  margin-top: 20px;
+}
+
+.trainer-submit-attendance {
+  border: none;
+
+  background: #172554;
+
+  color: white;
+
+  padding: 12px 24px;
+
+  border-radius: 7px;
+
+  font-size: 12px;
+
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.trainer-submit-attendance:hover {
+  background: #1e3a8a;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 900px) {
+
+  .trainer-attendance-summary {
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+}
+
+@media (max-width: 650px) {
+
+  .trainer-attendance-session-page {
+    padding: 15px;
+  }
+
+  .trainer-session-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+  }
+
+  .trainer-session-program {
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 15px;
+  }
+
+  .trainer-session-date {
+    text-align: left;
+  }
+
+  .trainer-attendance-summary {
+    grid-template-columns: 1fr;
+  }
+
+}

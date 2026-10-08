@@ -1,0 +1,197 @@
+/* ==========================================
+   TRAINER PROFILE PAGE
+========================================== */
+
+.trainer-profile-page {
+  min-height: 100vh;
+  background: #f5f7fb;
+  padding: 30px;
+  box-sizing: border-box;
+}
+
+
+/* ==========================================
+   HEADER
+========================================== */
+
+.trainer-profile-header {
+  max-width: 1100px;
+  margin: 0 auto 25px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  padding: 22px 28px;
+  border-radius: 14px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+}
+
+.trainer-profile-header h1 {
+  margin: 0;
+  font-size: 28px;
+  color: #1f2937;
+}
+
+.trainer-profile-header p {
+  margin: 6px 0 0;
+  color: #6b7280;
+}
+
+.trainer-profile-header a {
+  text-decoration: none;
+  background: #2563eb;
+  color: #ffffff;
+  padding: 11px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: 0.2s;
+}
+
+.trainer-profile-header a:hover {
+  background: #1d4ed8;
+}
+
+
+/* ==========================================
+   PROFILE CARD
+========================================== */
+
+.trainer-profile-card {
+  max-width: 1100px;
+  margin: 0 auto;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 35px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.07);
+}
+
+
+/* ==========================================
+   PROFILE TOP
+========================================== */
+
+.trainer-profile-top {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  padding-bottom: 30px;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.trainer-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: #2563eb;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.trainer-profile-top h2 {
+  margin: 0 0 6px;
+  color: #111827;
+  font-size: 25px;
+}
+
+.trainer-profile-top p {
+  margin: 0 0 8px;
+  color: #6b7280;
+  font-size: 15px;
+}
+
+.trainer-profile-top span {
+  display: inline-block;
+  background: #dcfce7;
+  color: #15803d;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+
+/* ==========================================
+   PROFILE DETAILS
+========================================== */
+
+.trainer-profile-grid {
+  margin-top: 30px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 22px;
+}
+
+.trainer-profile-grid > div {
+  background: #f8fafc;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.trainer-profile-grid label {
+  display: block;
+  color: #6b7280;
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 7px;
+}
+
+.trainer-profile-grid strong {
+  display: block;
+  color: #111827;
+  font-size: 16px;
+  word-break: break-word;
+}
+
+
+/* ==========================================
+   RESPONSIVE
+========================================== */
+
+@media (max-width: 768px) {
+
+  .trainer-profile-page {
+    padding: 15px;
+  }
+
+  .trainer-profile-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+
+  .trainer-profile-card {
+    padding: 22px;
+  }
+
+  .trainer-profile-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trainer-profile-top {
+    align-items: flex-start;
+  }
+
+}
+
+@media (max-width: 480px) {
+
+  .trainer-profile-top {
+    flex-direction: column;
+  }
+
+  .trainer-profile-header h1 {
+    font-size: 23px;
+  }
+
+  .trainer-avatar {
+    width: 70px;
+    height: 70px;
+    font-size: 26px;
+  }
+
+}

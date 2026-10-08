@@ -1,0 +1,626 @@
+/* =========================================
+   Trainer Assessment Details Page
+========================================= */
+
+.trainer-assessment-details-page {
+  min-height: 100vh;
+  padding: 35px 40px 50px;
+  background: #f4f7fb;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   Header
+========================================= */
+
+.trainer-assessment-details-header {
+  max-width: 1100px;
+  margin: 0 auto 30px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  gap: 20px;
+}
+
+.trainer-assessment-details-header h1 {
+  margin: 0;
+
+  color: #172554;
+
+  font-size: 30px;
+  font-weight: 700;
+}
+
+.trainer-assessment-details-header p {
+  margin: 7px 0 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   Back Button
+========================================= */
+
+.trainer-assessment-back-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 11px 18px;
+
+  background: #1e3a8a;
+  color: #ffffff;
+
+  border-radius: 8px;
+
+  text-decoration: none;
+
+  font-size: 14px;
+  font-weight: 600;
+
+  transition: 0.2s ease;
+}
+
+.trainer-assessment-back-btn:hover {
+  background: #172554;
+  color: #ffffff;
+
+  transform: translateY(-1px);
+}
+
+/* =========================================
+   Assessment Information Card
+========================================= */
+
+.trainer-assessment-info-card {
+  max-width: 1100px;
+  margin: 0 auto 30px;
+
+  padding: 30px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 18px rgba(15, 23, 42, 0.07);
+
+  box-sizing: border-box;
+}
+
+/* =========================================
+   Assessment Icon
+========================================= */
+
+.trainer-assessment-info-icon {
+  width: 60px;
+  height: 60px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-bottom: 18px;
+
+  background: #eff6ff;
+
+  border-radius: 14px;
+
+  font-size: 30px;
+}
+
+/* =========================================
+   Assessment Title
+========================================= */
+
+.trainer-assessment-info-card h2 {
+  margin: 0 0 10px;
+
+  color: #172554;
+
+  font-size: 26px;
+  font-weight: 700;
+}
+
+/* =========================================
+   Description
+========================================= */
+
+.trainer-assessment-description {
+  margin: 0 0 25px;
+
+  color: #64748b;
+
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* =========================================
+   Information Grid
+========================================= */
+
+.trainer-assessment-info-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(4, minmax(0, 1fr));
+
+  gap: 18px;
+
+  padding-top: 22px;
+
+  border-top: 1px solid #e2e8f0;
+}
+
+.trainer-assessment-info-grid > div {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 7px;
+}
+
+.trainer-assessment-info-grid span {
+  color: #64748b;
+
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.trainer-assessment-info-grid strong {
+  color: #1e293b;
+
+  font-size: 14px;
+  font-weight: 600;
+}
+
+/* =========================================
+   Status
+========================================= */
+
+.assessment-status {
+  display: inline-flex;
+
+  width: fit-content;
+
+  padding: 6px 12px;
+
+  background: #fef3c7;
+  color: #92400e;
+
+  border-radius: 20px;
+
+  font-size: 12px !important;
+  font-weight: 700 !important;
+}
+
+/* =========================================
+   Questions Section
+========================================= */
+
+.trainer-assessment-questions {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* =========================================
+   Section Header
+========================================= */
+
+.trainer-assessment-section-header {
+  margin-bottom: 18px;
+}
+
+.trainer-assessment-section-header h2 {
+  margin: 0;
+
+  color: #172554;
+
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.trainer-assessment-section-header p {
+  margin: 5px 0 0;
+
+  color: #64748b;
+
+  font-size: 13px;
+}
+
+/* =========================================
+   Empty Questions
+========================================= */
+
+.trainer-assessment-empty {
+  padding: 45px 25px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+
+  text-align: center;
+
+  box-shadow:
+    0 4px 18px rgba(15, 23, 42, 0.05);
+}
+
+.trainer-assessment-empty > div {
+  margin-bottom: 12px;
+
+  font-size: 35px;
+}
+
+.trainer-assessment-empty h3 {
+  margin: 0 0 8px;
+
+  color: #172554;
+
+  font-size: 18px;
+}
+
+.trainer-assessment-empty p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   Question List
+========================================= */
+
+.trainer-question-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 18px;
+}
+
+/* =========================================
+   Question Card
+========================================= */
+
+.trainer-question-card {
+  display: flex;
+
+  gap: 18px;
+
+  padding: 22px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 15px rgba(15, 23, 42, 0.05);
+
+  transition: 0.2s ease;
+}
+
+.trainer-question-card:hover {
+  transform: translateY(-2px);
+
+  box-shadow:
+    0 7px 20px rgba(15, 23, 42, 0.08);
+}
+
+/* =========================================
+   Question Number
+========================================= */
+
+.trainer-question-number {
+  min-width: 40px;
+  height: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #eff6ff;
+  color: #1e3a8a;
+
+  border-radius: 10px;
+
+  font-size: 15px;
+  font-weight: 700;
+}
+
+/* =========================================
+   Question Content
+========================================= */
+
+.trainer-question-content {
+  flex: 1;
+}
+
+.trainer-question-content h3 {
+  margin: 2px 0 18px;
+
+  color: #1e293b;
+
+  font-size: 16px;
+  font-weight: 600;
+
+  line-height: 1.5;
+}
+
+/* =========================================
+   Options
+========================================= */
+
+.trainer-question-options {
+  display: grid;
+
+  grid-template-columns:
+    repeat(2, minmax(0, 1fr));
+
+  gap: 10px;
+}
+
+.trainer-question-options > div {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 8px;
+
+  padding: 11px 13px;
+
+  background: #f8fafc;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 8px;
+}
+
+.trainer-question-options strong {
+  color: #1e3a8a;
+
+  font-size: 13px;
+}
+
+.trainer-question-options span {
+  color: #475569;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+}
+
+/* =========================================
+   Question Footer
+========================================= */
+
+.trainer-question-footer {
+  display: flex;
+
+  justify-content: space-between;
+
+  align-items: center;
+
+  gap: 15px;
+
+  margin-top: 18px;
+
+  padding-top: 15px;
+
+  border-top: 1px solid #e2e8f0;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+.trainer-question-footer strong {
+  color: #1e293b;
+}
+
+/* =========================================
+   Loading / Error
+========================================= */
+
+.trainer-assessment-message {
+  max-width: 700px;
+
+  margin: 80px auto;
+
+  padding: 35px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 14px;
+
+  text-align: center;
+
+  box-shadow:
+    0 4px 18px rgba(15, 23, 42, 0.06);
+}
+
+.trainer-assessment-message h2 {
+  margin: 0 0 10px;
+
+  color: #172554;
+
+  font-size: 22px;
+}
+
+.trainer-assessment-message p {
+  margin: 0 0 20px;
+
+  color: #64748b;
+
+  font-size: 14px;
+}
+
+/* =========================================
+   Responsive
+========================================= */
+
+@media (max-width: 950px) {
+  .trainer-assessment-info-grid {
+    grid-template-columns:
+      repeat(2, minmax(0, 1fr));
+  }
+
+  .trainer-question-options {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 700px) {
+  .trainer-assessment-details-page {
+    padding: 25px 20px 40px;
+  }
+
+  .trainer-assessment-details-header {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+
+  .trainer-assessment-info-card {
+    padding: 24px;
+  }
+
+  .trainer-assessment-info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trainer-question-card {
+    flex-direction: column;
+  }
+
+  .trainer-question-footer {
+    flex-direction: column;
+
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 450px) {
+  .trainer-assessment-details-header h1 {
+    font-size: 26px;
+  }
+
+  .trainer-assessment-info-card h2 {
+    font-size: 22px;
+  }
+
+  .trainer-question-card {
+    padding: 18px;
+  }
+}
+.view-assessment-btn {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 11px 16px;
+  background: #1e3a8a;
+  color: #ffffff;
+  border-radius: 8px;
+  text-align: center;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.view-assessment-btn:hover {
+  background: #172554;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+/* =========================================
+   Add Question Button
+========================================= */
+
+.trainer-assessment-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+}
+
+.add-question-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  background: #172554;
+  color: #ffffff;
+
+  text-decoration: none;
+
+  padding: 10px 16px;
+  border-radius: 7px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: 0.2s ease;
+}
+
+.add-question-btn:hover {
+  background: #1e3a8a;
+  color: #ffffff;
+}
+
+/* =========================================
+   Empty State Add Question Button
+========================================= */
+
+.empty-add-question-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 15px;
+
+  background: #172554;
+  color: #ffffff;
+
+  text-decoration: none;
+
+  padding: 10px 16px;
+  border-radius: 7px;
+
+  font-size: 12px;
+  font-weight: 600;
+
+  transition: 0.2s ease;
+}
+
+.empty-add-question-btn:hover {
+  background: #1e3a8a;
+  color: #ffffff;
+}
+
+/* =========================================
+   Responsive
+========================================= */
+
+@media (max-width: 600px) {
+
+  .trainer-assessment-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .add-question-btn {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+}

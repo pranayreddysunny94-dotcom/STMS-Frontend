@@ -1,0 +1,163 @@
+.trainer-project-details-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+.trainer-project-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.trainer-project-details-header h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 28px;
+}
+
+.trainer-project-details-header p {
+  margin: 7px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.trainer-project-details-header a {
+  background: #172554;
+  color: white;
+  text-decoration: none;
+  padding: 11px 18px;
+  border-radius: 7px;
+  font-size: 13px;
+}
+
+.trainer-project-details-card {
+  max-width: 900px;
+  margin: 0 auto;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 35px;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+}
+
+.project-details-icon {
+  width: 55px;
+  height: 55px;
+  background: #eef2ff;
+  border-radius: 11px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+.trainer-project-details-card h2 {
+  color: #172033;
+  font-size: 25px;
+  margin: 0 0 12px;
+}
+
+.project-description {
+  color: #64748b;
+  font-size: 14px;
+  line-height: 1.7;
+  margin-bottom: 30px;
+}
+
+.project-details-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+.project-detail-box {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 9px;
+  padding: 18px;
+}
+
+.project-detail-box span {
+  display: block;
+  color: #64748b;
+  font-size: 12px;
+  margin-bottom: 7px;
+}
+
+.project-detail-box strong {
+  color: #172033;
+  font-size: 14px;
+}
+
+.project-actions {
+  margin-top: 30px;
+  padding-top: 22px;
+  border-top: 1px solid #e2e8f0;
+}
+
+.back-project-button {
+  border: none;
+  background: #172554;
+  color: white;
+  padding: 11px 18px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.back-project-button:hover {
+  background: #1e3a8a;
+}
+
+.project-details-message {
+  max-width: 600px;
+  margin: 100px auto;
+  background: white;
+  padding: 35px;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 4px 15px rgba(15, 23, 42, 0.06);
+}
+
+.project-details-message h2 {
+  color: #172033;
+}
+
+.project-details-message p {
+  color: #64748b;
+}
+
+.project-details-message button {
+  margin-top: 15px;
+  border: none;
+  background: #172554;
+  color: white;
+  padding: 11px 18px;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+@media (max-width: 700px) {
+  .trainer-project-details-page {
+    padding: 18px;
+  }
+
+  .trainer-project-details-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .project-details-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .trainer-project-details-card {
+    padding: 22px;
+  }
+}

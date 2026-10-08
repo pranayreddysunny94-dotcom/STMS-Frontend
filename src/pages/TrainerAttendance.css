@@ -1,0 +1,360 @@
+/* =========================================
+   TRAINER ATTENDANCE PAGE
+========================================= */
+
+.trainer-attendance-page {
+  min-height: 100vh;
+  background: #f4f7fb;
+  padding: 30px;
+  font-family: Arial, sans-serif;
+}
+
+
+/* =========================================
+   HEADER
+========================================= */
+
+.trainer-attendance-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+.trainer-attendance-header h1 {
+  margin: 0;
+  color: #172033;
+  font-size: 28px;
+}
+
+.trainer-attendance-header p {
+  margin: 7px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.trainer-attendance-back {
+  text-decoration: none;
+  background: #64748b;
+  color: #ffffff;
+  padding: 10px 16px;
+  border-radius: 7px;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.trainer-attendance-back:hover {
+  background: #475569;
+}
+
+
+/* =========================================
+   MAIN SECTION
+========================================= */
+
+.trainer-attendance-section {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 22px;
+}
+
+.trainer-attendance-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.trainer-attendance-section-header h2 {
+  margin: 0;
+  color: #172033;
+  font-size: 19px;
+}
+
+.trainer-attendance-section-header p {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.trainer-session-count {
+  background: #eef2ff;
+  color: #3730a3;
+  padding: 8px 12px;
+  border-radius: 7px;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   PROGRAM LIST
+========================================= */
+
+.trainer-session-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.trainer-session-card {
+  display: grid;
+  grid-template-columns: 50px 1fr auto;
+  align-items: center;
+  gap: 18px;
+
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+
+  padding: 18px;
+
+  transition: 0.2s ease;
+}
+
+.trainer-session-card:hover {
+  border-color: #c7d2fe;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.06);
+}
+
+
+/* =========================================
+   NUMBER
+========================================= */
+
+.trainer-session-number {
+  width: 38px;
+  height: 38px;
+
+  border-radius: 8px;
+
+  background: #f1f5f9;
+  color: #475569;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 12px;
+  font-weight: 700;
+}
+
+
+/* =========================================
+   PROGRAM INFORMATION
+========================================= */
+
+.trainer-session-info h3 {
+  margin: 0 0 10px;
+
+  color: #172033;
+
+  font-size: 16px;
+}
+
+.trainer-program-details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+
+  margin-bottom: 10px;
+}
+
+.trainer-program-details span {
+  color: #64748b;
+
+  font-size: 11px;
+}
+
+.trainer-session-type {
+  display: inline-block;
+
+  background: #f1f5f9;
+  color: #475569;
+
+  padding: 5px 9px;
+
+  border-radius: 5px;
+
+  font-size: 9px;
+  font-weight: 700;
+}
+
+.trainer-session-type.active {
+  background: #dcfce7;
+  color: #166534;
+}
+
+
+/* =========================================
+   MARK ATTENDANCE BUTTON
+========================================= */
+
+.trainer-mark-attendance-btn {
+  border: 0;
+
+  background: #172554;
+  color: #ffffff;
+
+  padding: 11px 16px;
+
+  border-radius: 7px;
+
+  font-size: 11px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  white-space: nowrap;
+}
+
+.trainer-mark-attendance-btn:hover {
+  background: #1e3a8a;
+}
+
+.trainer-mark-attendance-btn span {
+  font-size: 15px;
+}
+
+
+/* =========================================
+   LOADING / ERROR / EMPTY
+========================================= */
+
+.trainer-attendance-message {
+  text-align: center;
+
+  padding: 55px 20px;
+
+  border: 1px dashed #cbd5e1;
+  border-radius: 10px;
+
+  background: #f8fafc;
+}
+
+.trainer-attendance-message.error {
+  background: #fff7f7;
+  border-color: #fecaca;
+}
+
+.trainer-message-icon {
+  font-size: 32px;
+  margin-bottom: 12px;
+}
+
+.trainer-attendance-message h3 {
+  margin: 0 0 7px;
+
+  color: #172033;
+
+  font-size: 16px;
+}
+
+.trainer-attendance-message p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+}
+
+
+/* =========================================
+   INFORMATION
+========================================= */
+
+.trainer-attendance-info {
+  margin-top: 20px;
+
+  background: #ffffff;
+
+  border: 1px solid #e2e8f0;
+
+  border-radius: 12px;
+
+  padding: 18px;
+
+  display: flex;
+
+  gap: 14px;
+
+  align-items: flex-start;
+}
+
+.trainer-info-icon {
+  font-size: 20px;
+}
+
+.trainer-attendance-info h3 {
+  margin: 0 0 5px;
+
+  color: #172033;
+
+  font-size: 14px;
+}
+
+.trainer-attendance-info p {
+  margin: 0;
+
+  color: #64748b;
+
+  font-size: 12px;
+
+  line-height: 1.6;
+}
+
+
+/* =========================================
+   RESPONSIVE
+========================================= */
+
+@media (max-width: 800px) {
+
+  .trainer-session-card {
+    grid-template-columns: 45px 1fr;
+  }
+
+  .trainer-mark-attendance-btn {
+    grid-column: 2;
+    justify-self: start;
+  }
+
+}
+
+@media (max-width: 600px) {
+
+  .trainer-attendance-page {
+    padding: 15px;
+  }
+
+  .trainer-attendance-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+  }
+
+  .trainer-attendance-section-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .trainer-session-card {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .trainer-mark-attendance-btn {
+    grid-column: auto;
+  }
+
+  .trainer-program-details {
+    flex-direction: column;
+    gap: 7px;
+  }
+
+}
