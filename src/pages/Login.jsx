@@ -28,21 +28,44 @@ function Login() {
 
       const data = response.data;
 
+      // Check selected role
       if (data.role !== role) {
         setError("Selected role does not match your account.");
         setLoading(false);
         return;
       }
 
-      // Store login token only for this browser tab
+      // ==========================================
+      // STORE JWT TOKEN
+      // ==========================================
+
       sessionStorage.setItem("token", data.token);
 
-      login({
+      // ==========================================
+      // STORE LOGGED-IN USER INFORMATION
+      // ==========================================
+
+      const userData = {
         id: data.id,
         name: data.name,
         email: data.email,
         role: data.role,
-      });
+      };
+
+      sessionStorage.setItem(
+        "user",
+        JSON.stringify(userData)
+      );
+
+      // ==========================================
+      // UPDATE AUTH CONTEXT
+      // ==========================================
+
+      login(userData);
+
+      // ==========================================
+      // NAVIGATION
+      // ==========================================
 
       if (data.role === "STUDENT") {
         navigate("/student-dashboard");
@@ -51,10 +74,14 @@ function Login() {
       } else if (data.role === "ADMIN") {
         navigate("/admin-dashboard");
       }
+
     } catch (err) {
+      console.error("LOGIN ERROR:", err);
+
       if (err.response && err.response.data) {
         setError(
-          err.response.data.message || "Invalid email or password"
+          err.response.data.message ||
+          "Invalid email or password"
         );
       } else {
         setError("Unable to connect to the server.");
@@ -88,6 +115,7 @@ function Login() {
         </div>
 
         <div className="login-right">
+
           <h2>Welcome Back</h2>
 
           <p className="login-subtitle">
@@ -128,20 +156,35 @@ function Login() {
               value={role}
               onChange={(e) => setRole(e.target.value)}
             >
-              <option value="STUDENT">Student</option>
-              <option value="TRAINER">Trainer</option>
-              <option value="ADMIN">Admin</option>
+              <option value="STUDENT">
+                Student
+              </option>
+
+              <option value="TRAINER">
+                Trainer
+              </option>
+
+              <option value="ADMIN">
+                Admin
+              </option>
             </select>
 
-            <button type="submit" disabled={loading}>
-              {loading ? "Logging in..." : "Login"}
+            <button
+              type="submit"
+              disabled={loading}
+            >
+              {loading
+                ? "Logging in..."
+                : "Login"}
             </button>
 
           </form>
 
           <p className="register-text">
             Don't have an account?{" "}
-            <Link to="/register">Register</Link>
+            <Link to="/register">
+              Register
+            </Link>
           </p>
 
         </div>

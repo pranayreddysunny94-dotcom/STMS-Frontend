@@ -1,8 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import api from "../services/api";
 import "./UserManagement.css";
-
-const API_URL = "http://localhost:9090/api/user";
 
 const EMPTY_FORM = {
   name: "",
@@ -23,25 +22,6 @@ function UserManagement() {
   const [saving, setSaving] = useState(false);
 
   const [formData, setFormData] = useState(EMPTY_FORM);
-
-  // ==========================================
-  // GET JWT TOKEN
-  // ==========================================
-
-  const getToken = useCallback(() => {
-    return (
-      localStorage.getItem("token") ||
-      localStorage.getItem("jwtToken") ||
-      localStorage.getItem("jwt") ||
-      localStorage.getItem("accessToken") ||
-      localStorage.getItem("authToken") ||
-      sessionStorage.getItem("token") ||
-      sessionStorage.getItem("jwtToken") ||
-      sessionStorage.getItem("jwt") ||
-      sessionStorage.getItem("accessToken") ||
-      ""
-    );
-  }, []);
 
   // ==========================================
   // RESET FORM
@@ -65,68 +45,114 @@ function UserManagement() {
       setLoading(true);
       setError("");
 
-      const token = getToken();
-
-      console.log("JWT TOKEN EXISTS:", token ? "YES" : "NO");
-
-      const headers = {
-        Accept: "application/json",
-      };
-
-      if (token) {
-        headers.Authorization = `Bearer ${token}`;
-      }
-
-      const response = await fetch(`${API_URL}/get`, {
-        method: "GET",
-        headers: headers,
-      });
-
-      const responseText = await response.text();
+      const response = await api.get("/user/get");
 
       console.log("GET USERS STATUS:", response.status);
-      console.log("GET USERS RESPONSE:", responseText);
+      console.log("GET USERS RESPONSE:", response.data);
 
-      if (!response.ok) {
+      const data = response.data;
+
+      if (!Array.isArray(data)) {
         throw new Error(
-          responseText ||
-            `HTTP ${response.status} ${response.statusText}`
+          "Server response is not a user list."
         );
       }
 
-      let data = [];
-
-      if (responseText.trim() !== "") {
-        data = JSON.parse(responseText);
-      }
-
-      if (!Array.isArray(data)) {
-        throw new Error("Server response is not a user list.");
-      }
-
       setUsers(data);
+
     } catch (err) {
       console.error("LOAD USERS ERROR:", err);
 
       setUsers([]);
 
-      if (err.message) {
-        setError(err.message);
+      if (err.response) {
+        if (err.response.status === 401) {
+          setError(
+            "Your session has expired. Please login again."
+          );
+        } else if (err.response.status === 403) {
+          setError(
+            "You do not have permission to manage users."
+          );
+        } else if (err.response.data?.message) {
+          setError(err.response.data.message);
+        } else {
+          setError(
+            `Unable to load users. Server returned ${err.response.status}.`
+          );
+        }
       } else {
-        setError("Unable to load users.");
+        setError(
+          "Unable to connect to the server."
+        );
       }
     } finally {
       setLoading(false);
     }
-  }, [getToken]);
+  }, []);
 
   // ==========================================
   // LOAD USERS WHEN PAGE OPENS
   // ==========================================
 
   useEffect(() => {
-    void Promise.resolve().then(loadUsers);
-  }, [loadUsers]);
+    let isMounted = true;
+
+    const fetchUsers = async () => {
+      try {
+        setLoading(true);
+        setError("");
+
+        const response = await api.get("/user/get");
+
+        if (!isMounted) {
+          return;
+        }
+
+        const data = response.data;
+
+        if (!Array.isArray(data)) {
+          throw new Error("Server response is not a user list.");
+        }
+
+        setUsers(data);
+      } catch (err) {
+        console.error("LOAD USERS ERROR:", err);
+
+        if (!isMounted) {
+          return;
+        }
+
+        setUsers([]);
+
+        if (err.response) {
+          if (err.response.status === 401) {
+            setError("Your session has expired. Please login again.");
+          } else if (err.response.status === 403) {
+            setError("You do not have permission to manage users.");
+          } else if (err.response.data?.message) {
+            setError(err.response.data.message);
+          } else {
+            setError(
+              `Unable to load users. Server returned ${err.response.status}.`
+            );
+          }
+        } else {
+          setError("Unable to connect to the server.");
+        }
+      } finally {
+        if (isMounted) {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchUsers();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   // ==========================================
   // ADD USER
@@ -211,17 +237,9 @@ function UserManagement() {
     try {
       setSaving(true);
 
-      const token = getToken();
-
-      const url = editingUser
-        ? `${API_URL}/update/${editingUser.id}`
-        : `${API_URL}/add`;
-
-      const method = editingUser ? "PUT" : "POST";
-
       const dataToSend = {
-        name: name,
-        email: email,
+        name,
+        email,
         role: formData.role,
       };
 
@@ -229,35 +247,29 @@ function UserManagement() {
         dataToSend.password = password;
       }
 
-      const headers = {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-      };
+      let response;
 
-      if (token) {
-        headers.Authorization = `Bearer ${token}`;
-      }
-
-      console.log("SAVE USER URL:", url);
-      console.log("SAVE USER METHOD:", method);
-
-      const response = await fetch(url, {
-        method: method,
-        headers: headers,
-        body: JSON.stringify(dataToSend),
-      });
-
-      const responseText = await response.text();
-
-      console.log("SAVE USER STATUS:", response.status);
-      console.log("SAVE USER RESPONSE:", responseText);
-
-      if (!response.ok) {
-        throw new Error(
-          responseText ||
-            `HTTP ${response.status} ${response.statusText}`
+      if (editingUser) {
+        response = await api.put(
+          `/user/update/${editingUser.id}`,
+          dataToSend
+        );
+      } else {
+        response = await api.post(
+          "/user/add",
+          dataToSend
         );
       }
+
+      console.log(
+        "SAVE USER STATUS:",
+        response.status
+      );
+
+      console.log(
+        "SAVE USER RESPONSE:",
+        response.data
+      );
 
       alert(
         editingUser
@@ -270,10 +282,21 @@ function UserManagement() {
       resetForm();
 
       await loadUsers();
+
     } catch (err) {
       console.error("SAVE USER ERROR:", err);
 
-      alert(err.message || "Unable to save user.");
+      if (err.response?.data?.message) {
+        alert(err.response.data.message);
+      } else if (err.response?.status === 403) {
+        alert(
+          "You do not have permission to perform this action."
+        );
+      } else {
+        alert(
+          "Unable to save user. Please try again."
+        );
+      }
     } finally {
       setSaving(false);
     }
@@ -298,40 +321,41 @@ function UserManagement() {
     }
 
     try {
-      const token = getToken();
+      const response = await api.delete(
+        `/user/delete/${id}`
+      );
 
-      const headers = {
-        Accept: "application/json",
-      };
+      console.log(
+        "DELETE USER STATUS:",
+        response.status
+      );
 
-      if (token) {
-        headers.Authorization = `Bearer ${token}`;
-      }
-
-      const response = await fetch(`${API_URL}/delete/${id}`, {
-        method: "DELETE",
-        headers: headers,
-      });
-
-      const responseText = await response.text();
-
-      console.log("DELETE USER STATUS:", response.status);
-      console.log("DELETE USER RESPONSE:", responseText);
-
-      if (!response.ok) {
-        throw new Error(
-          responseText ||
-            `HTTP ${response.status} ${response.statusText}`
-        );
-      }
+      console.log(
+        "DELETE USER RESPONSE:",
+        response.data
+      );
 
       alert("User deleted successfully.");
 
       await loadUsers();
-    } catch (err) {
-      console.error("DELETE USER ERROR:", err);
 
-      alert(err.message || "Unable to delete user.");
+    } catch (err) {
+      console.error(
+        "DELETE USER ERROR:",
+        err
+      );
+
+      if (err.response?.data?.message) {
+        alert(err.response.data.message);
+      } else if (err.response?.status === 403) {
+        alert(
+          "You do not have permission to delete users."
+        );
+      } else {
+        alert(
+          "Unable to delete user."
+        );
+      }
     }
   };
 
@@ -343,26 +367,38 @@ function UserManagement() {
     <div className="user-management-page">
 
       <div className="user-management-header">
+
         <div>
           <h1>User Management</h1>
-          <p>Manage all users registered in the system.</p>
+
+          <p>
+            Manage all users registered in the system.
+          </p>
         </div>
 
         <button
           type="button"
           className="dashboard-btn"
-          onClick={() => navigate("/admin-dashboard")}
+          onClick={() =>
+            navigate("/admin-dashboard")
+          }
         >
           ← Dashboard
         </button>
+
       </div>
 
       <div className="users-container">
 
         <div className="users-title-row">
+
           <div>
             <h2>System Users</h2>
-            <p>Manage students, trainers and administrators.</p>
+
+            <p>
+              Manage students, trainers and
+              administrators.
+            </p>
           </div>
 
           <button
@@ -372,6 +408,7 @@ function UserManagement() {
           >
             + Add User
           </button>
+
         </div>
 
         {loading && (
@@ -382,16 +419,28 @@ function UserManagement() {
 
         {!loading && error && (
           <div className="message-box error-message">
-            <strong>Unable to load users</strong>
-            <span>{error}</span>
+
+            <strong>
+              Unable to load users
+            </strong>
+
+            <span>
+              {error}
+            </span>
+
           </div>
         )}
 
-        {!loading && !error && users.length > 0 && (
+        {!loading &&
+          !error &&
+          users.length > 0 && (
+
           <div className="table-wrapper">
+
             <table className="users-table">
 
               <thead>
+
                 <tr>
                   <th>ID</th>
                   <th>User</th>
@@ -400,21 +449,29 @@ function UserManagement() {
                   <th>Status</th>
                   <th>Action</th>
                 </tr>
+
               </thead>
 
               <tbody>
+
                 {users.map((user) => (
+
                   <tr key={user.id}>
 
-                    <td>{user.id}</td>
+                    <td>
+                      {user.id}
+                    </td>
 
                     <td className="user-name">
                       {user.name || "-"}
                     </td>
 
-                    <td>{user.email || "-"}</td>
+                    <td>
+                      {user.email || "-"}
+                    </td>
 
                     <td>
+
                       <span
                         className={`role-badge ${String(
                           user.role || ""
@@ -422,21 +479,27 @@ function UserManagement() {
                       >
                         {user.role || "-"}
                       </span>
+
                     </td>
 
                     <td>
+
                       <span className="status-badge active">
                         Active
                       </span>
+
                     </td>
 
                     <td>
+
                       <div className="action-buttons">
 
                         <button
                           type="button"
                           className="edit-btn"
-                          onClick={() => handleEdit(user)}
+                          onClick={() =>
+                            handleEdit(user)
+                          }
                         >
                           Edit
                         </button>
@@ -452,39 +515,54 @@ function UserManagement() {
                         </button>
 
                       </div>
+
                     </td>
 
                   </tr>
+
                 ))}
+
               </tbody>
 
             </table>
+
           </div>
         )}
 
-        {!loading && !error && users.length === 0 && (
+        {!loading &&
+          !error &&
+          users.length === 0 && (
+
           <div className="message-box">
             No users found.
           </div>
+
         )}
 
       </div>
 
       {showModal && (
+
         <div className="modal-overlay">
 
           <div className="user-modal">
 
             <div className="modal-header">
+
               <div>
+
                 <h2>
-                  {editingUser ? "Edit User" : "Add User"}
+                  {editingUser
+                    ? "Edit User"
+                    : "Add User"}
                 </h2>
+
                 <p>
                   {editingUser
                     ? "Update user information."
                     : "Create a new system user."}
                 </p>
+
               </div>
 
               <button
@@ -495,11 +573,13 @@ function UserManagement() {
               >
                 ×
               </button>
+
             </div>
 
             <form onSubmit={handleSubmit}>
 
               <div className="form-group">
+
                 <label htmlFor="name">
                   Name
                 </label>
@@ -513,9 +593,11 @@ function UserManagement() {
                   placeholder="Enter full name"
                   required
                 />
+
               </div>
 
               <div className="form-group">
+
                 <label htmlFor="email">
                   Email
                 </label>
@@ -529,9 +611,11 @@ function UserManagement() {
                   placeholder="Enter email address"
                   required
                 />
+
               </div>
 
               <div className="form-group">
+
                 <label htmlFor="password">
                   Password
                 </label>
@@ -552,12 +636,15 @@ function UserManagement() {
 
                 {editingUser && (
                   <small>
-                    Leave blank to keep the current password.
+                    Leave blank to keep the
+                    current password.
                   </small>
                 )}
+
               </div>
 
               <div className="form-group">
+
                 <label htmlFor="role">
                   Role
                 </label>
@@ -568,10 +655,21 @@ function UserManagement() {
                   value={formData.role}
                   onChange={handleChange}
                 >
-                  <option value="STUDENT">STUDENT</option>
-                  <option value="TRAINER">TRAINER</option>
-                  <option value="ADMIN">ADMIN</option>
+
+                  <option value="STUDENT">
+                    STUDENT
+                  </option>
+
+                  <option value="TRAINER">
+                    TRAINER
+                  </option>
+
+                  <option value="ADMIN">
+                    ADMIN
+                  </option>
+
                 </select>
+
               </div>
 
               <div className="modal-actions">
@@ -604,6 +702,7 @@ function UserManagement() {
           </div>
 
         </div>
+
       )}
 
     </div>
