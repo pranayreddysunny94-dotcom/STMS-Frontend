@@ -18,7 +18,7 @@ function Assessments() {
         setLoading(true);
 
         const userData = JSON.parse(
-          localStorage.getItem("user")
+          sessionStorage.getItem("user")
         );
 
         if (!userData?.id) {
