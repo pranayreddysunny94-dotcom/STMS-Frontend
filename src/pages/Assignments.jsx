@@ -23,7 +23,9 @@ function Assignments() {
         const userData = sessionStorage.getItem("user");
 
         if (!userData) {
-          throw new Error("User information not found. Please login again.");
+          throw new Error(
+            "User information not found. Please log in again."
+          );
         }
 
         let user;
@@ -31,11 +33,15 @@ function Assignments() {
         try {
           user = JSON.parse(userData);
         } catch {
-          throw new Error("Invalid user information. Please login again.");
+          throw new Error(
+            "Invalid user information. Please log in again."
+          );
         }
 
         if (!user?.id) {
-          throw new Error("User ID not found. Please login again.");
+          throw new Error(
+            "User ID not found. Please log in again."
+          );
         }
 
         console.log("Logged-in User ID:", user.id);
@@ -45,11 +51,12 @@ function Assignments() {
           `/students/user/${user.id}`
         );
 
-        const studentId = studentResponse.data?.id;
+        const student = studentResponse.data;
+        const studentId = student?.id;
 
         if (!studentId) {
           throw new Error(
-            "Student profile not found. Please contact the administrator."
+            "Student profile not found for this account."
           );
         }
 
@@ -64,11 +71,15 @@ function Assignments() {
             ),
           ]);
 
-        const assignmentData = Array.isArray(assignmentResponse.data)
+        const assignmentData = Array.isArray(
+          assignmentResponse.data
+        )
           ? assignmentResponse.data
           : [];
 
-        const submissionData = Array.isArray(submissionResponse.data)
+        const submissionData = Array.isArray(
+          submissionResponse.data
+        )
           ? submissionResponse.data
           : [];
 
@@ -93,11 +104,13 @@ function Assignments() {
           } else if (responseData?.message) {
             message = responseData.message;
           } else if (err.response.status === 401) {
-            message = "Session expired. Please login again.";
+            message = "Session expired. Please log in again.";
           } else if (err.response.status === 403) {
-            message = "You don't have permission to view assignments.";
+            message =
+              "You don't have permission to view assignments.";
           } else if (err.response.status === 404) {
-            message = "Student profile or assignment endpoint was not found.";
+            message =
+              "Student profile or submission endpoint was not found.";
           }
         } else if (err.message) {
           message = err.message;
@@ -120,13 +133,18 @@ function Assignments() {
     };
   }, []);
 
-  // CHECK SUBMISSION STATUS
+  // CHECK WHETHER AN ASSIGNMENT IS SUBMITTED
   const isAssignmentSubmitted = (assignmentId) => {
-    return submissions.some(
-      (submission) =>
-        Number(submission.assignment?.id ?? submission.assignmentId) ===
+    return submissions.some((submission) => {
+      const submittedAssignmentId =
+        submission.assignment?.id ??
+        submission.assignmentId;
+
+      return (
+        Number(submittedAssignmentId) ===
         Number(assignmentId)
-    );
+      );
+    });
   };
 
   // FORMAT DATE
@@ -169,7 +187,9 @@ function Assignments() {
         <div className="assignments-loading">
           <div className="loading-icon">📋</div>
           <h2>Loading Assignments...</h2>
-          <p>Please wait while assignments are being loaded.</p>
+          <p>
+            Please wait while assignments are being loaded.
+          </p>
         </div>
       </div>
     );
@@ -182,7 +202,9 @@ function Assignments() {
         <div className="assignments-header">
           <div>
             <h1>Assignments</h1>
-            <p>View your assignments, deadlines and submission status.</p>
+            <p>
+              View your assignments, deadlines and submission status.
+            </p>
           </div>
 
           <Link
@@ -218,7 +240,9 @@ function Assignments() {
       <div className="assignments-header">
         <div>
           <h1>Assignments</h1>
-          <p>View your assignments, deadlines and submission status.</p>
+          <p>
+            View your assignments, deadlines and submission status.
+          </p>
         </div>
 
         <Link
@@ -256,7 +280,7 @@ function Assignments() {
         </div>
       </div>
 
-      {/* ASSIGNMENTS */}
+      {/* ASSIGNMENTS SECTION */}
       <section className="my-assignments-section">
         <h2>My Assignments</h2>
 
@@ -266,7 +290,9 @@ function Assignments() {
 
         <div className="assignments-grid">
           {assignments.map((assignment) => {
-            const submitted = isAssignmentSubmitted(assignment.id);
+            const submitted = isAssignmentSubmitted(
+              assignment.id
+            );
 
             return (
               <div
@@ -275,8 +301,11 @@ function Assignments() {
                 }`}
                 key={assignment.id}
               >
+                {/* CARD HEADER */}
                 <div className="assignment-card-top">
-                  <div className="assignment-card-icon">📋</div>
+                  <div className="assignment-card-icon">
+                    📋
+                  </div>
 
                   <span
                     className={`assignment-status ${
@@ -289,12 +318,16 @@ function Assignments() {
                   </span>
                 </div>
 
+                {/* TITLE */}
                 <h3>{assignment.title}</h3>
 
+                {/* DESCRIPTION */}
                 <p className="assignment-description">
-                  {assignment.description || "No description available."}
+                  {assignment.description ||
+                    "No description available."}
                 </p>
 
+                {/* DETAILS */}
                 <div className="assignment-card-details">
                   <div className="assignment-detail-row">
                     <span>📚 Program</span>
@@ -306,7 +339,9 @@ function Assignments() {
 
                   <div className="assignment-detail-row">
                     <span>📅 Due Date</span>
-                    <strong>{formatDate(assignment.dueDate)}</strong>
+                    <strong>
+                      {formatDate(assignment.dueDate)}
+                    </strong>
                   </div>
 
                   <div className="assignment-detail-row">
@@ -315,24 +350,30 @@ function Assignments() {
                   </div>
                 </div>
 
+                {/* ACTION */}
                 <Link
                   to={`/assignment-details/${assignment.id}`}
                   className={`view-assignment-button ${
                     submitted ? "submitted-button" : ""
                   }`}
                 >
-                  {submitted ? "View Submission →" : "View Assignment →"}
+                  {submitted
+                    ? "View Submission →"
+                    : "View Assignment →"}
                 </Link>
               </div>
             );
           })}
         </div>
 
+        {/* NO ASSIGNMENTS */}
         {assignments.length === 0 && (
           <div className="no-assignments">
             <div>📋</div>
             <h3>No Assignments</h3>
-            <p>There are currently no assignments available.</p>
+            <p>
+              There are currently no assignments available.
+            </p>
           </div>
         )}
       </section>
