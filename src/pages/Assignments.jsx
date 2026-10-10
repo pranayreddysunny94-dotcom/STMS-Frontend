@@ -24,7 +24,7 @@ function Assignments() {
         // GET LOGGED-IN STUDENT
         // --------------------------------------
 
-        const userData = localStorage.getItem("user");
+        const userData = sessionStorage.getItem("user");
 
         if (!userData) {
           setError("Student information not found. Please login again.");
