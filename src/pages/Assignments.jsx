@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import api from "../services/api";
@@ -6,197 +7,155 @@ import "./Assignments.css";
 function Assignments() {
   const [assignments, setAssignments] = useState([]);
   const [submissions, setSubmissions] = useState([]);
-
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
-  // ==========================================
-  // LOAD ASSIGNMENTS + STUDENT SUBMISSIONS
-  // ==========================================
-
+  // LOAD ASSIGNMENTS AND STUDENT SUBMISSIONS
   useEffect(() => {
+    let isMounted = true;
+
     const loadData = async () => {
       try {
         setLoading(true);
         setError("");
 
-        // --------------------------------------
-        // GET LOGGED-IN STUDENT
-        // --------------------------------------
-
+        // GET LOGGED-IN USER
         const userData = sessionStorage.getItem("user");
 
         if (!userData) {
-          setError("Student information not found. Please login again.");
-          return;
+          throw new Error("User information not found. Please login again.");
         }
 
-        const user = JSON.parse(userData);
+        let user;
 
-        const studentId = user.id;
+        try {
+          user = JSON.parse(userData);
+        } catch {
+          throw new Error("Invalid user information. Please login again.");
+        }
+
+        if (!user?.id) {
+          throw new Error("User ID not found. Please login again.");
+        }
+
+        console.log("Logged-in User ID:", user.id);
+
+        // GET ACTUAL STUDENT PROFILE
+        const studentResponse = await api.get(
+          `/students/user/${user.id}`
+        );
+
+        const studentId = studentResponse.data?.id;
 
         if (!studentId) {
-          setError("Student ID not found. Please login again.");
-          return;
+          throw new Error(
+            "Student profile not found. Please contact the administrator."
+          );
         }
 
-        console.log("Logged-in Student ID:", studentId);
+        console.log("Student Profile ID:", studentId);
 
-        // --------------------------------------
-        // GET ASSIGNMENTS
-        // --------------------------------------
+        // LOAD ASSIGNMENTS AND SUBMISSIONS
+        const [assignmentResponse, submissionResponse] =
+          await Promise.all([
+            api.get("/assignments"),
+            api.get(
+              `/assignment-submissions/student/${studentId}`
+            ),
+          ]);
 
-        const assignmentResponse =
-          await api.get("/assignments");
+        const assignmentData = Array.isArray(assignmentResponse.data)
+          ? assignmentResponse.data
+          : [];
 
-        const assignmentData =
-          assignmentResponse.data || [];
+        const submissionData = Array.isArray(submissionResponse.data)
+          ? submissionResponse.data
+          : [];
 
-        console.log(
-          "Assignments:",
-          assignmentData
-        );
+        console.log("Assignments:", assignmentData);
+        console.log("Student Submissions:", submissionData);
 
-        setAssignments(assignmentData);
-
-        // --------------------------------------
-        // GET STUDENT SUBMISSIONS
-        // --------------------------------------
-
-        const submissionResponse =
-          await api.get(
-            `/assignment-submissions/student/${studentId}`
-          );
-
-        const submissionData =
-          submissionResponse.data || [];
-
-        console.log(
-          "Student Submissions:",
-          submissionData
-        );
-
-        setSubmissions(submissionData);
-
+        if (isMounted) {
+          setAssignments(assignmentData);
+          setSubmissions(submissionData);
+          setError("");
+        }
       } catch (err) {
-        console.error(
-          "Assignments API Error:",
-          err
-        );
+        console.error("Assignments API Error:", err);
 
-        if (err.response?.data) {
+        let message = "Unable to load assignments.";
 
-          if (
-            typeof err.response.data ===
-            "string"
-          ) {
-            setError(
-              err.response.data
-            );
+        if (err.response) {
+          const responseData = err.response.data;
+
+          if (typeof responseData === "string") {
+            message = responseData;
+          } else if (responseData?.message) {
+            message = responseData.message;
+          } else if (err.response.status === 401) {
+            message = "Session expired. Please login again.";
+          } else if (err.response.status === 403) {
+            message = "You don't have permission to view assignments.";
+          } else if (err.response.status === 404) {
+            message = "Student profile or assignment endpoint was not found.";
           }
-
-          else if (
-            err.response.data.message
-          ) {
-            setError(
-              err.response.data.message
-            );
-          }
-
-          else {
-            setError(
-              "Unable to load assignments."
-            );
-          }
-
-        } else {
-
-          setError(
-            "Unable to connect to backend."
-          );
+        } else if (err.message) {
+          message = err.message;
         }
 
+        if (isMounted) {
+          setError(message);
+        }
       } finally {
-
-        setLoading(false);
-
+        if (isMounted) {
+          setLoading(false);
+        }
       }
     };
 
     loadData();
 
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
-
-  // ==========================================
-  // CHECK WHETHER ASSIGNMENT IS SUBMITTED
-  // ==========================================
-
-  const isAssignmentSubmitted = (
-    assignmentId
-  ) => {
-
+  // CHECK SUBMISSION STATUS
+  const isAssignmentSubmitted = (assignmentId) => {
     return submissions.some(
       (submission) =>
-        submission.assignment?.id ===
-        assignmentId
+        Number(submission.assignment?.id ?? submission.assignmentId) ===
+        Number(assignmentId)
     );
   };
 
-
-  // ==========================================
   // FORMAT DATE
-  // ==========================================
-
   const formatDate = (date) => {
-
     if (!date) {
       return "Not specified";
     }
 
-    const parsedDate =
-      new Date(date);
+    const parsedDate = new Date(date);
 
-    if (
-      Number.isNaN(
-        parsedDate.getTime()
-      )
-    ) {
+    if (Number.isNaN(parsedDate.getTime())) {
       return date;
     }
 
-    return parsedDate.toLocaleDateString(
-      "en-IN",
-      {
-        day: "2-digit",
-        month: "short",
-        year: "numeric",
-      }
-    );
+    return parsedDate.toLocaleDateString("en-IN", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+    });
   };
 
-
-  // ==========================================
   // LOADING
-  // ==========================================
-
   if (loading) {
-
     return (
       <div className="assignments-page">
-
         <div className="assignments-header">
-
           <div>
-
-            <h1>
-              Assignments
-            </h1>
-
-            <p>
-              Loading assignments...
-            </p>
-
+            <h1>Assignments</h1>
+            <p>Loading assignments...</p>
           </div>
 
           <Link
@@ -205,53 +164,25 @@ function Assignments() {
           >
             ← Dashboard
           </Link>
-
         </div>
 
         <div className="assignments-loading">
-
-          <div className="loading-icon">
-            📋
-          </div>
-
-          <h2>
-            Loading Assignments...
-          </h2>
-
-          <p>
-            Please wait while assignments
-            are being loaded.
-          </p>
-
+          <div className="loading-icon">📋</div>
+          <h2>Loading Assignments...</h2>
+          <p>Please wait while assignments are being loaded.</p>
         </div>
-
       </div>
     );
   }
 
-
-  // ==========================================
   // ERROR
-  // ==========================================
-
   if (error) {
-
     return (
       <div className="assignments-page">
-
         <div className="assignments-header">
-
           <div>
-
-            <h1>
-              Assignments
-            </h1>
-
-            <p>
-              View your assignments,
-              deadlines and submission status.
-            </p>
-
+            <h1>Assignments</h1>
+            <p>View your assignments, deadlines and submission status.</p>
           </div>
 
           <Link
@@ -260,76 +191,34 @@ function Assignments() {
           >
             ← Dashboard
           </Link>
-
         </div>
 
         <div className="assignments-error">
-
-          <div className="error-icon">
-            ⚠️
-          </div>
-
-          <h2>
-            Unable to Load Assignments
-          </h2>
-
-          <p>
-            {error}
-          </p>
-
+          <div className="error-icon">⚠️</div>
+          <h2>Unable to Load Assignments</h2>
+          <p>{error}</p>
         </div>
-
       </div>
     );
   }
 
+  // STATISTICS
+  const totalAssignments = assignments.length;
 
-  // ==========================================
-  // COUNTS
-  // ==========================================
+  const submittedCount = assignments.filter((assignment) =>
+    isAssignmentSubmitted(assignment.id)
+  ).length;
 
-  const totalAssignments =
-    assignments.length;
+  const pendingCount = totalAssignments - submittedCount;
 
-  const submittedCount =
-    assignments.filter(
-      (assignment) =>
-        isAssignmentSubmitted(
-          assignment.id
-        )
-    ).length;
-
-  const pendingCount =
-    totalAssignments -
-    submittedCount;
-
-
-  // ==========================================
   // PAGE
-  // ==========================================
-
   return (
-
     <div className="assignments-page">
-
-
-      {/* ======================================
-          HEADER
-      ======================================= */}
-
+      {/* HEADER */}
       <div className="assignments-header">
-
         <div>
-
-          <h1>
-            Assignments
-          </h1>
-
-          <p>
-            View your assignments,
-            deadlines and submission status.
-          </p>
-
+          <h1>Assignments</h1>
+          <p>View your assignments, deadlines and submission status.</p>
         </div>
 
         <Link
@@ -338,281 +227,115 @@ function Assignments() {
         >
           ← Dashboard
         </Link>
-
       </div>
 
-
-      {/* ======================================
-          STATISTICS
-      ======================================= */}
-
+      {/* STATISTICS */}
       <div className="assignment-stats">
-
-
-        {/* TOTAL */}
-
         <div className="assignment-stat-card">
-
-          <div className="stat-icon">
-            📋
-          </div>
-
+          <div className="stat-icon">📋</div>
           <div>
-
-            <span>
-              Total Assignments
-            </span>
-
-            <strong>
-              {totalAssignments}
-            </strong>
-
+            <span>Total Assignments</span>
+            <strong>{totalAssignments}</strong>
           </div>
-
         </div>
 
-
-        {/* PENDING */}
-
         <div className="assignment-stat-card">
-
-          <div className="stat-icon">
-            ⏳
-          </div>
-
+          <div className="stat-icon">⏳</div>
           <div>
-
-            <span>
-              Pending
-            </span>
-
-            <strong>
-              {pendingCount}
-            </strong>
-
+            <span>Pending</span>
+            <strong>{pendingCount}</strong>
           </div>
-
         </div>
 
-
-        {/* SUBMITTED */}
-
         <div className="assignment-stat-card">
-
-          <div className="stat-icon submitted-stat-icon">
-            ✅
-          </div>
-
+          <div className="stat-icon submitted-stat-icon">✅</div>
           <div>
-
-            <span>
-              Submitted
-            </span>
-
-            <strong>
-              {submittedCount}
-            </strong>
-
+            <span>Submitted</span>
+            <strong>{submittedCount}</strong>
           </div>
-
         </div>
-
       </div>
 
-
-      {/* ======================================
-          ASSIGNMENTS SECTION
-      ======================================= */}
-
+      {/* ASSIGNMENTS */}
       <section className="my-assignments-section">
-
-        <h2>
-          My Assignments
-        </h2>
+        <h2>My Assignments</h2>
 
         <p className="section-description">
-          Select an assignment to view
-          complete details and submit your work.
+          Select an assignment to view complete details and submit your work.
         </p>
 
-
-        {/* ====================================
-            ASSIGNMENT CARDS
-        ===================================== */}
-
         <div className="assignments-grid">
+          {assignments.map((assignment) => {
+            const submitted = isAssignmentSubmitted(assignment.id);
 
-          {assignments.map(
-            (assignment) => {
+            return (
+              <div
+                className={`assignment-card ${
+                  submitted ? "assignment-submitted" : ""
+                }`}
+                key={assignment.id}
+              >
+                <div className="assignment-card-top">
+                  <div className="assignment-card-icon">📋</div>
 
-              const submitted =
-                isAssignmentSubmitted(
-                  assignment.id
-                );
-
-              return (
-
-                <div
-                  className={`assignment-card ${
-                    submitted
-                      ? "assignment-submitted"
-                      : ""
-                  }`}
-                  key={assignment.id}
-                >
-
-
-                  {/* TOP */}
-
-                  <div className="assignment-card-top">
-
-                    <div className="assignment-card-icon">
-                      📋
-                    </div>
-
-                    <span
-                      className={`assignment-status ${
-                        submitted
-                          ? "submitted"
-                          : "active"
-                      }`}
-                    >
-                      {submitted
-                        ? "SUBMITTED"
-                        : assignment.status ||
-                          "ACTIVE"}
-                    </span>
-
-                  </div>
-
-
-                  {/* TITLE */}
-
-                  <h3>
-                    {assignment.title}
-                  </h3>
-
-
-                  {/* DESCRIPTION */}
-
-                  <p className="assignment-description">
-
-                    {assignment.description ||
-                      "No description available."}
-
-                  </p>
-
-
-                  {/* DETAILS */}
-
-                  <div className="assignment-card-details">
-
-
-                    {/* PROGRAM */}
-
-                    <div className="assignment-detail-row">
-
-                      <span>
-                        📚 Program
-                      </span>
-
-                      <strong>
-
-                        {assignment.trainingProgram
-                          ?.title ||
-                          "Java Full Stack Development"}
-
-                      </strong>
-
-                    </div>
-
-
-                    {/* DUE DATE */}
-
-                    <div className="assignment-detail-row">
-
-                      <span>
-                        📅 Due Date
-                      </span>
-
-                      <strong>
-                        {formatDate(
-                          assignment.dueDate
-                        )}
-                      </strong>
-
-                    </div>
-
-
-                    {/* ASSIGNMENT ID */}
-
-                    <div className="assignment-detail-row">
-
-                      <span>
-                        🆔 Assignment ID
-                      </span>
-
-                      <strong>
-                        #{assignment.id}
-                      </strong>
-
-                    </div>
-
-                  </div>
-
-
-                  {/* BUTTON */}
-
-                  <Link
-                    to={`/assignment-details/${assignment.id}`}
-                    className={`view-assignment-button ${
-                      submitted
-                        ? "submitted-button"
-                        : ""
+                  <span
+                    className={`assignment-status ${
+                      submitted ? "submitted" : "active"
                     }`}
                   >
-
                     {submitted
-                      ? "View Submission →"
-                      : "View Assignment →"}
-
-                  </Link>
-
+                      ? "SUBMITTED"
+                      : assignment.status || "ACTIVE"}
+                  </span>
                 </div>
 
-              );
+                <h3>{assignment.title}</h3>
 
-            }
-          )}
+                <p className="assignment-description">
+                  {assignment.description || "No description available."}
+                </p>
 
+                <div className="assignment-card-details">
+                  <div className="assignment-detail-row">
+                    <span>📚 Program</span>
+                    <strong>
+                      {assignment.trainingProgram?.title ||
+                        "Training Program"}
+                    </strong>
+                  </div>
+
+                  <div className="assignment-detail-row">
+                    <span>📅 Due Date</span>
+                    <strong>{formatDate(assignment.dueDate)}</strong>
+                  </div>
+
+                  <div className="assignment-detail-row">
+                    <span>🆔 Assignment ID</span>
+                    <strong>#{assignment.id}</strong>
+                  </div>
+                </div>
+
+                <Link
+                  to={`/assignment-details/${assignment.id}`}
+                  className={`view-assignment-button ${
+                    submitted ? "submitted-button" : ""
+                  }`}
+                >
+                  {submitted ? "View Submission →" : "View Assignment →"}
+                </Link>
+              </div>
+            );
+          })}
         </div>
 
-
-        {/* NO ASSIGNMENTS */}
-
         {assignments.length === 0 && (
-
           <div className="no-assignments">
-
-            <div>
-              📋
-            </div>
-
-            <h3>
-              No Assignments
-            </h3>
-
-            <p>
-              There are currently no
-              assignments available.
-            </p>
-
+            <div>📋</div>
+            <h3>No Assignments</h3>
+            <p>There are currently no assignments available.</p>
           </div>
-
         )}
-
       </section>
-
     </div>
   );
 }
